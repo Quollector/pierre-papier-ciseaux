@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- Form -->
+    <div id="user_entry">
+        <fieldset>
+            <p>
+                <label for="user-name">Nom</label>
+            </p>
+            <p>
+                <input type="text" name="user-name" id="user_name" required>
+            </p>
+            <p>
+                <label for="user-skin">Peau</label>
+            </p>
+            <p class="user-entry-radio">
+                <input type="radio" name="user-skin" value="0" checked>👋
+                <input type="radio" name="user-skin" value="1">👋🏻
+                <input type="radio" name="user-skin" value="2">👋🏽
+                <input type="radio" name="user-skin" value="3">👋🏿
+            </p>
+            <p>
+                <label for="user-choice">Choix</label>
+            </p>
+            <p>
+                <select name="user-choice" id="user_choice">
+                    <option value="0" selected>🥔</option>
+                    <option value="1">📄</option>
+                    <option value="2">✂️</option>
+                </select>
+            </p>                    
+                
+            <button id="play-button">Jouer</button>
+        </fieldset>
+    </div>
+
+    <!-- Résultat -->
+    <div id="wrapper-result">
+
+        <div class="result result-user">
+            <h1 class="player-h1" id="fill_name_user"></h1>
+            <p class="illu_choice" id="illu_player_choice"></p>
+        </div>
+        <div class="result result-computer">
+            <h1 class="player-h1">CPU</h1>
+            <p class="illu_choice" id="illu_cpu_choice"></p>
+        </div>
+
+        <h1 id="txt_result"></h1>
+
+        <button id="restart-button">Rejouer</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
