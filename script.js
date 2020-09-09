@@ -4,6 +4,8 @@ const display_name_player = document.querySelector('#fill_name_user');
 const div_player = document.querySelector('.result-user');
 const div_cpu = document.querySelector('.result-computer');
 const txt_result = document.querySelector('#txt_result');
+const btn_play = document.querySelector('#play-button');
+const btn_restart = document.querySelector('#restart-button');
 
 // Fonctions de résultat de jeu
 function egalite(){
@@ -43,11 +45,16 @@ function play(){
         ['✊🏿','✋🏿','✌🏿']
     ];
 
+
+
     // Fonction d'affichage de peau
     function skin_display(){
         document.querySelector('#illu_player_choice').innerHTML = skin_color[user_skin][user_choice];
         document.querySelector('#illu_cpu_choice').innerHTML = skin_color[computer_skin][computer_choice];
     }
+
+
+
 
     // Action suivant le résultat
     if(user_choice == computer_choice){
@@ -65,20 +72,38 @@ function play(){
 
     // Affichage du nom du joueur
     display_name_player.innerHTML = user_name;
-
-    // Retrait form + Affichage résultat
-    user_form.style.display = "none";
-    document.querySelector('#wrapper-result').style.display = "flex";
-}
-
-function restart(){
-
-    // Affichage form + retrait résultat
-    user_form.style.display = "inline-block";
-    document.querySelector('#wrapper-result').style.display = "none";
 }
 
 // Actions boutons
-document.querySelector('#play-button').addEventListener('click', play);
+btn_play.addEventListener('click', function(){
+    play();
 
-document.querySelector('#restart-button').addEventListener('click', restart);
+    gsap.timeline()
+    .to('#user_entry',
+    {
+        y: '100vh',
+        ease: 'back.in',
+        duration: 1
+    })
+    .fromTo('#wrapper-result', 
+    {opacity: 0},
+    {opacity: 1, display: 'flex'});
+
+
+
+});
+
+btn_restart.addEventListener('click', function(){
+    gsap.timeline()
+    .to('#wrapper-result',
+    {
+        opacity: 0,
+        display: 'none'
+    })
+    .to('#user_entry', 
+    {
+        y: '0vh', 
+        ease: 'back.out',
+        duration: 1
+    })
+});

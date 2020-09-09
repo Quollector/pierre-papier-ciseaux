@@ -13,6 +13,8 @@ html, body{
 body{
     background-color: #272635;
     font-family: sans-serif;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
@@ -81,7 +83,7 @@ body{
 #wrapper-result{
     width: 100%;
     height: 100%;
-    display: flex;
+    opacity: 0;
     background-color: green;
     display: none;
     color: #fff;
