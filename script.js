@@ -7,76 +7,10 @@ const txt_result = document.querySelector('#txt_result');
 const btn_play = document.querySelector('#play-button');
 const btn_restart = document.querySelector('#restart-button');
 
-// Fonctions de résultat de jeu
-function egalite(){
-    div_player.style.backgroundColor = "#3F88C5";
-    div_cpu.style.backgroundColor = "#3F88C5";
-    txt_result.innerHTML = "MATCH NUL !";
-}
-
-function victoire(){
-    div_player.style.backgroundColor = "#7FD8BE";
-    div_cpu.style.backgroundColor = "#D16D82";
-    txt_result.innerHTML = "VICTOIRE !";
-}
-
-function defaite(){
-    div_player.style.backgroundColor = "#D16D82";
-    div_cpu.style.backgroundColor = "#7FD8BE";
-    txt_result.innerHTML = "DÉFAITE !";
-}
-
-// Fonction du bouton play
-function play(){
-
-    // Déclaration des variables
-    let user_name = document.querySelector('#user_name').value.toUpperCase();
-    let user_skin = document.querySelector('[name=user-skin]:checked').value;
-    let user_choice = parseInt(document.querySelector('#user_choice').value);
-    let computer_skin = Math.floor(Math.random() * 4);
-    let computer_choice = Math.floor(Math.random() * 3);
-
-    // Tableaux de peau
-
-    let skin_color = [
-        ['✊','✋','✌️'],
-        ['✊🏻','✋🏻','✌🏻'],
-        ['✊🏽','✋🏽','✌🏽'],
-        ['✊🏿','✋🏿','✌🏿']
-    ];
-
-
-
-    // Fonction d'affichage de peau
-    function skin_display(){
-        document.querySelector('#illu_player_choice').innerHTML = skin_color[user_skin][user_choice];
-        document.querySelector('#illu_cpu_choice').innerHTML = skin_color[computer_skin][computer_choice];
-    }
-
-
-
-
-    // Action suivant le résultat
-    if(user_choice == computer_choice){
-        egalite();        
-        skin_display();
-    }
-    else if((user_choice == 0 && computer_choice == 1) || (user_choice == 1 && computer_choice == 2) ||(user_choice == 2 && computer_choice == 3)){
-        defaite();        
-        skin_display();
-    }
-    else{
-        victoire();        
-        skin_display();
-    }
-
-    // Affichage du nom du joueur
-    display_name_player.innerHTML = user_name;
-}
-
 // Actions boutons
 btn_play.addEventListener('click', function(){
-    play();
+
+    const game = new newGame();
 
     gsap.timeline()
     .to('#user_entry',
@@ -107,3 +41,56 @@ btn_restart.addEventListener('click', function(){
         duration: 1
     })
 });
+
+// Création de la classe
+class newGame{
+    constructor(){
+        this.skin_color = [
+            ['✊','✋','✌️'],
+            ['✊🏻','✋🏻','✌🏻'],
+            ['✊🏽','✋🏽','✌🏽'],
+            ['✊🏿','✋🏿','✌🏿']
+        ];
+        
+        // Déclaration des variables
+        this.user_name = document.querySelector('#user_name').value.toUpperCase();
+        this.user_skin = document.querySelector('[name=user-skin]:checked').value;
+        this.user_choice = parseInt(document.querySelector('#user_choice').value);
+        this.computer_skin = Math.floor(Math.random() * 4);
+        this.computer_choice = Math.floor(Math.random() * 3);
+
+        // Déclaration des fonctions
+        this.skin_display();
+        this.play();
+    }
+
+    // Fonction d'affichage de peau
+    skin_display(){
+        document.querySelector('#illu_player_choice').innerHTML = this.skin_color[this.user_skin][this.user_choice];
+        document.querySelector('#illu_cpu_choice').innerHTML = this.skin_color[this.computer_skin][this.computer_choice];
+    }
+
+    // Fonction du bouton play
+    play(){      
+
+        // Action suivant le résultat
+        if(this.user_choice == this.computer_choice){
+            div_player.style.backgroundColor = "#3F88C5";
+            div_cpu.style.backgroundColor = "#3F88C5";
+            txt_result.innerHTML = "MATCH NUL !"; 
+        }
+        else if((this.user_choice == 0 && this.computer_choice == 1) || (this.user_choice == 1 && this.computer_choice == 2) ||(this.user_choice == 2 && this.computer_choice == 3)){
+            div_player.style.backgroundColor = "#D16D82";
+            div_cpu.style.backgroundColor = "#7FD8BE";
+            txt_result.innerHTML = "DÉFAITE !";
+        }
+        else{
+            div_player.style.backgroundColor = "#7FD8BE";
+            div_cpu.style.backgroundColor = "#D16D82";
+            txt_result.innerHTML = "VICTOIRE !";
+        }
+
+        // Affichage du nom du joueur
+        display_name_player.innerHTML = this.user_name;
+    }
+}
